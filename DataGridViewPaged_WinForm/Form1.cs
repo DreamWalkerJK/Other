@@ -18,12 +18,22 @@ namespace DataGridViewPaged_WinForm
             LoadData();
         }
 
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFirstPage_Click(object sender, EventArgs e)
         {
             currentPage = 1;
             LoadData();
         }
 
+        /// <summary>
+        /// 上一页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnLastPage_Click(object sender, EventArgs e)
         {
             if (currentPage == 1)
@@ -37,6 +47,11 @@ namespace DataGridViewPaged_WinForm
             }
         }
 
+        /// <summary>
+        /// 跳转
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGoPage_Click(object sender, EventArgs e)
         {
             if (!IsNormalPage(txtCurrentPage.Text.Trim()))
@@ -59,6 +74,11 @@ namespace DataGridViewPaged_WinForm
             }
         }
 
+        /// <summary>
+        /// 下一页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNextPage_Click(object sender, EventArgs e)
         {
             if (currentPage < pageCount)
@@ -72,17 +92,30 @@ namespace DataGridViewPaged_WinForm
             }
         }
 
+        /// <summary>
+        /// 尾页
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEndPage_Click(object sender, EventArgs e)
         {
             currentPage = pageCount;
             LoadData();
         }
 
+        /// <summary>
+        /// 填写的跳转页面数值是否是正整数
+        /// </summary>
+        /// <param name="page"></param>
+        /// <returns></returns>
         private static bool IsNormalPage(string page)
         {
             return string.IsNullOrWhiteSpace(page) ? false : Regex.IsMatch(page, @"^[1-9]\d*$");
         }
 
+        /// <summary>
+        /// 加载数据
+        /// </summary>
         private void LoadData()
         {
             dgvUser.DataSource = DBUtil.GetListTable(currentPage, pageSize, ref recordCount);
