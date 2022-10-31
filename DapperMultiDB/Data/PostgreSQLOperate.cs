@@ -87,5 +87,21 @@ namespace DapperMultiDB.Data
                 return connection.Query<T>(sql, new { ids }).ToList();
             }
         }
+
+        public static void QueryMultiple<T, T1>(string sql, out List<T> t, out List<T1> t1)
+        {
+            using (IDbConnection connection = DataService.GetPostgreConnection())
+            {
+                var multiReader = connection.QueryMultiple(sql);
+
+                t = multiReader.Read<T>().ToList();
+
+                t1 = multiReader.Read<T1>().ToList();
+
+                multiReader.Dispose();
+
+
+            }
+        }
     }
 }
